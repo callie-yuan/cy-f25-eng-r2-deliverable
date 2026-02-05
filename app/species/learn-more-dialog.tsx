@@ -64,9 +64,10 @@ export default function LearnMoreDialog({ userId, species }: { userId: string; s
           <p className="text-sm">{species.description}</p>
         </div>
 
+        {/* display species author information */}
         <div>
           <h3 className="text-lg font-semibold">Author</h3>
-          <p className="text-sm">{species.author}</p>
+          <p className="text-sm">{species.profiles.display_name}</p>
         </div>
       </DialogContent>
     </Dialog>

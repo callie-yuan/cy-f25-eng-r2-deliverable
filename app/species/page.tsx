@@ -20,7 +20,10 @@ export default async function SpeciesList() {
   // Obtain the ID of the currently signed-in user
   const sessionId = session.user.id;
 
-  const { data: species } = await supabase.from("species").select("*").order("id", { ascending: false });
+  const { data: species } = await supabase
+    .from("species")
+    .select("*, profiles(display_name)")
+    .order("id", { ascending: false });
 
   return (
     <>
