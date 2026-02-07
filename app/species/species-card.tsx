@@ -15,7 +15,11 @@ import Image from "next/image";
 import LearnMoreDialog from "./learn-more-dialog";
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
-export default function SpeciesCard({ species }: { species: Species }) {
+{
+  /* added passing through sessionId for editing feature */
+}
+
+export default function SpeciesCard({ species, sessionId }: { species: Species; sessionId: string }) {
   return (
     <div className="m-4 w-72 min-w-72 flex-none rounded border-2 p-3 shadow">
       {species.image && (
@@ -28,7 +32,7 @@ export default function SpeciesCard({ species }: { species: Species }) {
       <p>{species.description ? species.description.slice(0, 150).trim() + "..." : ""}</p>
       {/* Replace the button with the detailed view dialog. */}
       <div className="mt-3 w-full">
-        <LearnMoreDialog species={species} />
+        <LearnMoreDialog species={species} sessionId={sessionId} />
       </div>
     </div>
   );
