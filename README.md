@@ -1,6 +1,6 @@
-# T4SG Fall 2025 Application Deliverable
+# T4SG Spring 2026 Application Deliverable
 
-- [T4SG Spring 2025 Application Deliverable](#t4sg-spring-2025-application-deliverable)
+- [T4SG Spring 2026 Application Deliverable](#t4sg-spring-2025-application-deliverable)
   - [Introduction](#introduction)
   - [Setup](#setup)
     - [Install `npm` and `node`](#install-npm-and-node)
@@ -87,10 +87,10 @@ git clone git@github.com:hcs-t4sg/f25-eng-r2-deliverable.git
 
   ```bash
   added 414 packages, and audited 415 packages in 13s
-  
+
   149 packages are looking for funding
   run `npm fund` for details
-  
+
   found 0 vulnerabilities
   ```
 
