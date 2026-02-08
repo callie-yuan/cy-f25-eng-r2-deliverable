@@ -218,7 +218,9 @@ export default function AddSpeciesDialog({ userId }: { userId: string }) {
                           value={value ?? ""}
                           placeholder="300000"
                           {...rest}
-                          onChange={(event) => field.onChange(+event.target.value)}
+                          onChange={(event) =>
+                            field.onChange(event.target.value === "" ? null : Number(event.target.value))
+                          }
                         />
                       </FormControl>
                       <FormMessage />
