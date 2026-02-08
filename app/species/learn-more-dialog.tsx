@@ -62,15 +62,7 @@ type FormData = z.infer<typeof speciesSchema>;
 
 // display the scientific_name, common_name, total_population, kingdom, and description
 
-export default function LearnMoreDialog({
-  userId,
-  species,
-  sessionId,
-}: {
-  userId: string;
-  species: Species;
-  sessionId: string;
-}) {
+export default function LearnMoreDialog({ species, sessionId }: { species: Species; sessionId: string }) {
   const router = useRouter();
 
   // Control open/closed state of the dialog
@@ -186,9 +178,10 @@ export default function LearnMoreDialog({
           </div>
 
           {/* display species author information */}
+          {/* !NEED TO FIX AUTHOR! */}
           <div>
             <h3 className="text-lg font-semibold">Author</h3>
-            <p className="text-sm">{species.profiles.display_name}</p>
+            <p className="text-sm">{species.author}</p>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { CheckIcon, ChevronDown, WandSparkles, XCircle, XIcon } from "lucide-react";
+import { CheckIcon, ChevronDown, Sparkles, XCircle, XIcon } from "lucide-react";
 import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -301,7 +301,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       animationConfig,
       maxCount = 3,
       modalPopover = false,
-      asChild = false,
+      
       className,
       hideSelectAll = false,
       searchable = true,
@@ -350,7 +350,9 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 
     const isGroupedOptions = React.useCallback(
       (opts: MultiSelectOption[] | MultiSelectGroup[]): opts is MultiSelectGroup[] => {
-        return opts.length > 0 && "heading" in opts[0];
+        if (opts.length === 0) return false;
+        const first = (opts[0] as unknown) as Record<string, unknown>;
+        return typeof first === "object" && first !== null && "heading" in first;
       },
       [],
     );
@@ -640,8 +642,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 
     const getWidthConstraints = () => {
       const defaultMinWidth = screenSize === "mobile" ? "0px" : "200px";
-      const effectiveMinWidth = minWidth || defaultMinWidth;
-      const effectiveMaxWidth = maxWidth || "100%";
+      const effectiveMinWidth = minWidth ?? defaultMinWidth;
+      const effectiveMaxWidth = maxWidth ?? "100%";
       return {
         minWidth: effectiveMinWidth,
         maxWidth: effectiveMaxWidth,
@@ -803,8 +805,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                             )}
                             style={{
                               ...badgeStyle,
-                              animationDuration: `${animationConfig?.duration || animation}s`,
-                              animationDelay: `${animationConfig?.delay || 0}s`,
+                              animationDuration: `${animationConfig?.duration ?? animation}s`,
+                              animationDelay: `${animationConfig?.delay ?? 0}s`,
                             }}
                           >
                             {IconComponent && !responsiveSettings.hideIcons && (
@@ -854,8 +856,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                           "[&>svg]:pointer-events-auto",
                         )}
                         style={{
-                          animationDuration: `${animationConfig?.duration || animation}s`,
-                          animationDelay: `${animationConfig?.delay || 0}s`,
+                          animationDuration: `${animationConfig?.duration ?? animation}s`,
+                          animationDelay: `${animationConfig?.delay ?? 0}s`,
                         }}
                       >
                         {`+ ${selectedValues.length - responsiveSettings.maxCount} more`}
@@ -918,8 +920,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
               popoverClassName,
             )}
             style={{
-              animationDuration: `${animationConfig?.duration || animation}s`,
-              animationDelay: `${animationConfig?.delay || 0}s`,
+              animationDuration: `${animationConfig?.duration ?? animation}s`,
+              animationDelay: `${animationConfig?.delay ?? 0}s`,
               maxWidth: `min(${widthConstraints.maxWidth}, 85vw)`,
               maxHeight: screenSize === "mobile" ? "70vh" : "60vh",
               touchAction: "manipulation",
@@ -950,7 +952,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                   "overscroll-behavior-y-contain",
                 )}
               >
-                <CommandEmpty>{emptyIndicator || "No results found."}</CommandEmpty>{" "}
+                <CommandEmpty>{emptyIndicator ?? "No results found."}</CommandEmpty>{" "}
                 {!hideSelectAll && !searchValue && (
                   <CommandGroup>
                     <CommandItem
@@ -1073,7 +1075,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
             </Command>
           </PopoverContent>
           {animation > 0 && selectedValues.length > 0 && (
-            <WandSparkles
+            <Sparkles
               className={cn(
                 "my-2 h-3 w-3 cursor-pointer bg-background text-foreground",
                 isAnimating ? "" : "text-muted-foreground",
