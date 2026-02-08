@@ -155,7 +155,7 @@ export default function LearnMoreDialog({
       </DialogTrigger>
       <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Species details for {species.common_name ?? species.scientific_name}</DialogTitle>
+          <DialogTitle>Details for {species.common_name ?? species.scientific_name}</DialogTitle>
           <DialogDescription>You&apos;re learning more!</DialogDescription>
         </DialogHeader>
 
