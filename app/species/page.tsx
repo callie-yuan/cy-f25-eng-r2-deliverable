@@ -23,7 +23,7 @@ export default async function SpeciesList() {
 
   // address untyped display_name issue
   type SpeciesWithProfile = Database["public"]["Tables"]["species"]["Row"] & {
-    profiles: { display_name: string | null };
+    profiles?: { display_name: string | null } | null;
   };
 
   // fetch species data from supabase (with display name of author)
@@ -33,6 +33,7 @@ export default async function SpeciesList() {
     .order("id", { ascending: false });
 
   const species = speciesData as SpeciesWithProfile[] | null;
+
   return (
     <>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
@@ -42,13 +43,7 @@ export default async function SpeciesList() {
       <Separator className="my-4" />
       <div className="flex flex-wrap justify-center">
         {/* added passing through sessionId and author display name */}
-        {species?.map((s) => (
-          <SpeciesCard
-            key={s.id}
-            species={{ ...s, author: s.profiles.display_name ?? s.author }}
-            sessionId={sessionId}
-          />
-        ))}
+        {species?.map((s) => <SpeciesCard key={s.id} species={s} sessionId={sessionId} />)}
       </div>
     </>
   );

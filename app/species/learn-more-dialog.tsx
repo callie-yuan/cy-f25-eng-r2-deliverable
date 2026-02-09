@@ -24,7 +24,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 type SpeciesWithProfile = Database["public"]["Tables"]["species"]["Row"] & {
-  profile?: { display_name: string | null };
+  profiles?: { display_name: string | null } | null;
 };
 
 // We use zod (z) to define a schema for the "Add species" form.
@@ -105,6 +105,8 @@ export default function LearnMoreDialog({ species, sessionId }: { species: Speci
 
   const supabase = createBrowserSupabaseClient();
 
+  const authorName = (species.profiles as { display_name: string | null } | undefined)?.display_name ?? species.author;
+
   const onSubmit = async (input: FormData) => {
     // The `input` prop contains data that has already been processed by zod. We can now use it in a supabase query
     const { error } = await supabase
@@ -183,7 +185,7 @@ export default function LearnMoreDialog({ species, sessionId }: { species: Speci
           {/* !NEED TO FIX AUTHOR! */}
           <div>
             <h3 className="text-lg font-semibold">Author</h3>
-            <p className="text-sm">{species.profile?.display_name}</p>
+            <p className="text-sm">{authorName}</p>
           </div>
         </div>
 

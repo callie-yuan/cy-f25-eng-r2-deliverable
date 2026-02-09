@@ -14,7 +14,7 @@ import type { Database } from "@/lib/schema";
 import Image from "next/image";
 import LearnMoreDialog from "./learn-more-dialog";
 type SpeciesWithProfile = Database["public"]["Tables"]["species"]["Row"] & {
-  profiles?: { display_name: string | null };
+  profiles?: { display_name: string | null } | null;
 };
 
 {
