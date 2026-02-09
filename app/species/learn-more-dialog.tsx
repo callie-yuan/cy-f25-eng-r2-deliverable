@@ -23,7 +23,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-type Species = Database["public"]["Tables"]["species"]["Row"];
+type SpeciesWithProfile = Database["public"]["Tables"]["species"]["Row"] & {
+  profile?: { display_name: string | null };
+};
 
 // We use zod (z) to define a schema for the "Add species" form.
 // zod handles validation of the input values with methods like .string(), .nullable(). It also processes the form inputs with .transform() before the inputs are sent to the database.
@@ -62,7 +64,7 @@ type FormData = z.infer<typeof speciesSchema>;
 
 // display the scientific_name, common_name, total_population, kingdom, and description
 
-export default function LearnMoreDialog({ species, sessionId }: { species: Species; sessionId: string }) {
+export default function LearnMoreDialog({ species, sessionId }: { species: SpeciesWithProfile; sessionId: string }) {
   const router = useRouter();
 
   // Control open/closed state of the dialog
@@ -181,7 +183,7 @@ export default function LearnMoreDialog({ species, sessionId }: { species: Speci
           {/* !NEED TO FIX AUTHOR! */}
           <div>
             <h3 className="text-lg font-semibold">Author</h3>
-            <p className="text-sm">{species.author}</p>
+            <p className="text-sm">{species.profile?.display_name}</p>
           </div>
         </div>
 

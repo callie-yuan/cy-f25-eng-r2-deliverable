@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { TypographyH2 } from "@/components/ui/typography";
+import type { Database } from "@/lib/schema";
 import { createServerSupabaseClient } from "@/lib/server-utils";
 import { redirect } from "next/navigation";
 import AddSpeciesDialog from "./add-species-dialog";
@@ -20,12 +21,18 @@ export default async function SpeciesList() {
   // Obtain the ID of the currently signed-in user
   const sessionId = session.user.id;
 
+  // address untyped display_name issue
+  type SpeciesWithProfile = Database["public"]["Tables"]["species"]["Row"] & {
+    profiles: { display_name: string | null };
+  };
+
   // fetch species data from supabase (with display name of author)
-  const { data: species } = await supabase
+  const { data: speciesData } = await supabase
     .from("species")
     .select("*, profiles(display_name)")
     .order("id", { ascending: false });
 
+  const species = speciesData as SpeciesWithProfile[] | null;
   return (
     <>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
@@ -34,8 +41,14 @@ export default async function SpeciesList() {
       </div>
       <Separator className="my-4" />
       <div className="flex flex-wrap justify-center">
-        {/* added passing through sessionId*/}
-        {species?.map((species) => <SpeciesCard key={species.id} species={species} sessionId={sessionId} />)}
+        {/* added passing through sessionId and author display name */}
+        {species?.map((s) => (
+          <SpeciesCard
+            key={s.id}
+            species={{ ...s, author: s.profiles.display_name ?? s.author }}
+            sessionId={sessionId}
+          />
+        ))}
       </div>
     </>
   );

@@ -13,13 +13,15 @@ can cause errors with matching props and state in child components if the list o
 import type { Database } from "@/lib/schema";
 import Image from "next/image";
 import LearnMoreDialog from "./learn-more-dialog";
-type Species = Database["public"]["Tables"]["species"]["Row"];
+type SpeciesWithProfile = Database["public"]["Tables"]["species"]["Row"] & {
+  profiles?: { display_name: string | null };
+};
 
 {
   /* added passing through sessionId for editing feature */
 }
 
-export default function SpeciesCard({ species, sessionId }: { species: Species; sessionId: string }) {
+export default function SpeciesCard({ species, sessionId }: { species: SpeciesWithProfile; sessionId: string }) {
   return (
     <div className="m-4 w-72 min-w-72 flex-none rounded border-2 p-3 shadow">
       {species.image && (
