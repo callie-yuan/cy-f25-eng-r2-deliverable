@@ -37,8 +37,7 @@ export default async function SpeciesSpeedPage() {
           fascinating patterns in nature’s race for survival.
         </p>
         <p className="text-white-700">
-          Select animals from the dropdown to compare their speeds and see how diet influences speed across the animal
-          kingdom!
+          Select animals from the dropdown to compare their speeds and see how diet influences speed!
         </p>
       </section>
       <SpeciesSpeedMultiSelect />
