@@ -182,7 +182,6 @@ export default function LearnMoreDialog({ species, sessionId }: { species: Speci
           </div>
 
           {/* display species author information */}
-          {/* !NEED TO FIX AUTHOR! */}
           <div>
             <h3 className="text-lg font-semibold">Author</h3>
             <p className="text-sm">{authorName}</p>

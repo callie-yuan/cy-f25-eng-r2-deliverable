@@ -43,7 +43,6 @@ export default function AnimalSpeedGraph() {
   useEffect(() => {
     csv("/sample_animals.csv")
       .then((rows) => {
-        // CSV headers in the file are like "Animal", "Average Speed (km/h)", "Diet"
         const data: AnimalDatum[] = rows.map((row: any) => {
           const name = String(row["Animal"] ?? row.name ?? "");
           const speed = Number(row["Average Speed (km/h)"] ?? row.speed ?? 0);

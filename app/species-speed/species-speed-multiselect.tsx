@@ -16,7 +16,6 @@ export default function SpeciesSpeedMultiSelect() {
     csv("/sample_animals.csv")
       .then((rows) => {
         const typedRows = rows as unknown as Record<string, string>[];
-        // CSV headers in the file are like "Animal", "Average Speed (km/h)", "Diet"
         const options: Options[] = typedRows.map((row) => {
           const name = String(row.Animal ?? row.name ?? "");
           return { label: name, value: name } as Options;
